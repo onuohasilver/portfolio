@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/src/components/widgetContainer/animatedBackdrop.dart';
 import 'package:portfolio/src/core/constants.dart';
 import 'package:portfolio/src/core/utilities/sizing.dart';
 
@@ -13,23 +14,24 @@ class Landing extends StatelessWidget {
         color: Colors.black,
         child: Stack(
           children: [
+            AnimatedBackdrop(
+              floatIcon: Icons.code_outlined,
+            ),
             Positioned.fill(
               top: size.h * .1,
               child: Align(
                 alignment: Alignment.topCenter,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Material(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Text('Resume',
-                            style: AppFonts(size).subtitle(
-                              0.01,
-                            )),
-                      ),
-                    ),
-                  ],
+                child: SizedBox(
+                  width: size.w * .35,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SlimTextButton(label: 'Portfolio'),
+                      SlimTextButton(label: 'Notes'),
+                      SlimTextButton(label: 'CV'),
+                      SlimTextButton(label: 'Contact Me'),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -78,6 +80,34 @@ class Landing extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class SlimTextButton extends StatelessWidget {
+  const SlimTextButton({
+    Key? key,
+    required this.label,
+  }) : super(key: key);
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    SizeReference size = SizeReference(context);
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {},
+        borderRadius: BorderRadius.circular(10),
+        child: Padding(
+          padding: EdgeInsets.all(size.w * .005),
+          child: Text(label,
+              style: AppFonts(size).subtitle(
+                0.01,
+              )),
         ),
       ),
     );
